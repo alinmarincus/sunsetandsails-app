@@ -13,9 +13,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
+// Atentie: 'is_admin' se scrie doar din panoul de admin si din comanda
+// club:admin. Formularele publice construiesc explicit campurile permise,
+// deci nu poate fi setat dintr-o cerere HTTP.
 #[Fillable([
     'name', 'email', 'phone', 'password', 'avatar_path', 'locale',
-    'status', 'wall_public', 'photo_consent_at',
+    'status', 'wall_public', 'photo_consent_at', 'is_admin',
 ])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
