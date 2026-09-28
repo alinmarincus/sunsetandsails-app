@@ -11,6 +11,7 @@ return [
     'nav.logout'    => 'Ieși',
     'nav.login'     => 'Autentificare',
     'nav.join'      => 'Intră în club',
+    'nav.menu'      => 'Meniu',
 
     /* Join */
     'join.eyebrow'  => 'Clubul Sunset & Sails',

@@ -20,18 +20,20 @@
       <span>{{ __('club.brand') }}</span>
     </a>
 
-    <nav class="header-nav">
-      @auth
-        <a href="{{ route('club.dashboard', app()->getLocale()) }}">{{ __('club.nav.dashboard') }}</a>
-        <a href="{{ route('club.profile', app()->getLocale()) }}">{{ __('club.nav.profile') }}</a>
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit" class="btn btn--ghost btn--sm">{{ __('club.nav.logout') }}</button>
-        </form>
-      @else
-        <a href="{{ route('login') }}">{{ __('club.nav.login') }}</a>
-        <a href="{{ route('club.join', app()->getLocale()) }}" class="btn btn--sm">{{ __('club.nav.join') }}</a>
-      @endauth
+    <div class="header-right">
+      <nav class="header-nav">
+        @auth
+          <a href="{{ route('club.dashboard', app()->getLocale()) }}">{{ __('club.nav.dashboard') }}</a>
+          <a href="{{ route('club.profile', app()->getLocale()) }}">{{ __('club.nav.profile') }}</a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn--ghost btn--sm">{{ __('club.nav.logout') }}</button>
+          </form>
+        @else
+          <a href="{{ route('login') }}">{{ __('club.nav.login') }}</a>
+          <a href="{{ route('club.join', app()->getLocale()) }}" class="btn btn--sm">{{ __('club.nav.join') }}</a>
+        @endauth
+      </nav>
 
       @php
         /* Paginile cu limba in adresa isi schimba prefixul; cele fara
@@ -54,9 +56,28 @@
              class="{{ app()->getLocale() === $loc ? 'is-active' : '' }}">{{ $loc }}</a>
         @endforeach
       </span>
-    </nav>
+
+      {{-- Pe mobil, navigatia intra intr-un meniu --}}
+      <button class="burger" id="burger" aria-label="{{ __('club.nav.menu') }}" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
+
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+  @auth
+    <a href="{{ route('club.dashboard', app()->getLocale()) }}">{{ __('club.nav.dashboard') }}</a>
+    <a href="{{ route('club.profile', app()->getLocale()) }}">{{ __('club.nav.profile') }}</a>
+    <form method="POST" action="{{ route('logout') }}">
+      @csrf
+      <button type="submit">{{ __('club.nav.logout') }}</button>
+    </form>
+  @else
+    <a href="{{ route('login') }}">{{ __('club.nav.login') }}</a>
+    <a href="{{ route('club.join', app()->getLocale()) }}">{{ __('club.nav.join') }}</a>
+  @endauth
+</div>
 
 <main>
   <div class="wrap {{ $narrow ?? false ? 'wrap--narrow' : '' }}">
@@ -66,6 +87,32 @@
     @yield('content')
   </div>
 </main>
+
+<script>
+(function () {
+  var burger = document.getElementById('burger');
+  var drawer = document.getElementById('nav-drawer');
+  if (!burger || !drawer) return;
+
+  function toggle(open) {
+    drawer.classList.toggle('is-open', open);
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  burger.addEventListener('click', function () {
+    toggle(!drawer.classList.contains('is-open'));
+  });
+  drawer.addEventListener('click', function (e) {
+    if (e.target === drawer) toggle(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') toggle(false);
+  });
+})();
+</script>
 
 <footer class="site-footer">
   © {{ date('Y') }} Sunset &amp; Sails · {{ __('club.footer.rights') }}

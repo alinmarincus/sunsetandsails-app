@@ -11,6 +11,7 @@ return [
     'nav.logout'    => 'Log out',
     'nav.login'     => 'Log in',
     'nav.join'      => 'Join the club',
+    'nav.menu'      => 'Menu',
 
     /* Join */
     'join.eyebrow'  => 'The Sunset & Sails Club',
