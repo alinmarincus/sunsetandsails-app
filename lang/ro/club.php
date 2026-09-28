@@ -1,0 +1,88 @@
+<?php
+
+return [
+    'meta.title'  => 'Clubul Sunset & Sails',
+    'brand'       => 'Clubul',
+    'footer.rights' => 'Toate drepturile rezervate',
+
+    /* Navigatie */
+    'nav.dashboard' => 'Contul meu',
+    'nav.profile'   => 'Profil',
+    'nav.logout'    => 'Ieși',
+    'nav.login'     => 'Autentificare',
+    'nav.join'      => 'Intră în club',
+
+    /* Join */
+    'join.eyebrow'  => 'Clubul Sunset & Sails',
+    'join.title'    => 'Navighează cu noi.<br>Rămâi cu noi.',
+    'join.lead'     => 'Clubul e locul unde îți ține minte marea toate ieșirile: croazierele tale, pozele de la bord, lista de bagaj și tot ce trebuie să știi înainte de plecare.',
+    'join.b1.title' => 'Croazierele tale, la un loc',
+    'join.b1.text'  => 'Vezi unde pleci, cu cine și când. Cu zilele rămase până la îmbarcare.',
+    'join.b2.title' => 'Lista de bagaj',
+    'join.b2.text'  => 'Pregătită de noi pentru fiecare destinație. O bifezi pe măsură ce strângi bagajul.',
+    'join.b3.title' => 'Pozele de la bord',
+    'join.b3.text'  => 'După fiecare ieșire, pozele în care apari ajung pe peretele tău. Tu decizi dacă rămâne privat.',
+    'join.b4.title' => 'Anunțuri și noutăți',
+    'join.b4.text'  => 'Schimbări de program, locuri rămase, pregătiri înainte de plecare.',
+    'join.form'     => 'Creează-ți contul',
+    'join.have'     => 'Ai deja cont?',
+
+    /* Formular */
+    'form.name'      => 'Numele tău',
+    'form.email'     => 'Email',
+    'form.phone'     => 'Telefon',
+    'form.password'  => 'Parolă',
+    'form.password2' => 'Confirmă parola',
+    'form.password_hint' => 'Minimum 8 caractere.',
+    'form.submit_join'   => 'Creează contul',
+    'form.remember'  => 'Ține-mă minte',
+    'form.forgot'    => 'Ți-ai uitat parola?',
+    'form.login'     => 'Intră în cont',
+    'form.consent_photo' => 'Sunt de acord să apar în fotografiile realizate la bord, folosite în club.',
+    'form.consent_gdpr'  => 'Accept stocarea datelor conform politicii de confidențialitate.',
+
+    /* Auth */
+    'login.title'    => 'Bine ai revenit',
+    'login.lead'     => 'Intră în contul tău de membru.',
+    'login.no_account' => 'Nu ai cont încă?',
+    'forgot.title'   => 'Ai uitat parola?',
+    'forgot.lead'    => 'Scrie-ne adresa de email și îți trimitem un link de resetare.',
+    'forgot.submit'  => 'Trimite linkul',
+    'reset.title'    => 'Parolă nouă',
+    'reset.submit'   => 'Salvează parola',
+    'back_to_login'  => '← Înapoi la autentificare',
+
+    /* Dashboard */
+    'dash.hello'        => 'Bună, :name',
+    'dash.member_since' => 'Membru din :date',
+    'dash.current'      => 'Croaziera ta, acum',
+    'dash.next'         => 'Următoarea croazieră',
+    'dash.upcoming'     => 'Croaziere viitoare',
+    'dash.past'         => 'Croaziere trecute',
+    'dash.checklist'    => 'Lista cu necesarul',
+    'dash.checklist_done' => ':done din :total',
+    'dash.news'         => 'Anunțuri',
+    'dash.days_left'    => 'zile până la îmbarcare',
+    'dash.day_left'     => 'zi până la îmbarcare',
+    'dash.on_board'     => 'Ești la bord 🌊',
+    'dash.no_trips'     => 'Nu ai încă nicio croazieră în cont. Când rezervi prima ieșire, apare aici.',
+    'dash.see_calendar' => 'Vezi calendarul croazierelor',
+    'dash.no_news'      => 'Niciun anunț deocamdată.',
+    'dash.pinned'       => 'Important',
+    'dash.no_past'      => 'Croazierele încheiate vor apărea aici, cu pozele de la bord.',
+    'dash.nights'       => ':n nopți',
+
+    /* Profil */
+    'profile.title'     => 'Profilul meu',
+    'profile.photo'     => 'Poză de profil',
+    'profile.photo_hint'=> 'JPG sau PNG, maximum 2 MB.',
+    'profile.save'      => 'Salvează',
+    'profile.saved'     => 'Profilul a fost actualizat.',
+    'profile.password'  => 'Schimbă parola',
+    'profile.current_password' => 'Parola actuală',
+    'profile.new_password'     => 'Parola nouă',
+    'profile.password_saved'   => 'Parola a fost schimbată.',
+    'profile.wall'      => 'Peretele meu de poze',
+    'profile.wall_public' => 'Fă peretele public, ca să-l pot împărtăși prin link.',
+    'profile.wall_hint' => 'Implicit e privat. Pozele de grup rămân vizibile doar în club, chiar dacă peretele e public.',
+];

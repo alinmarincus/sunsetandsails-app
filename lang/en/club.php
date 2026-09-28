@@ -1,0 +1,88 @@
+<?php
+
+return [
+    'meta.title'  => 'The Sunset & Sails Club',
+    'brand'       => 'The Club',
+    'footer.rights' => 'All rights reserved',
+
+    /* Navigation */
+    'nav.dashboard' => 'My account',
+    'nav.profile'   => 'Profile',
+    'nav.logout'    => 'Log out',
+    'nav.login'     => 'Log in',
+    'nav.join'      => 'Join the club',
+
+    /* Join */
+    'join.eyebrow'  => 'The Sunset & Sails Club',
+    'join.title'    => 'Sail with us.<br>Stay with us.',
+    'join.lead'     => 'The club is where the sea remembers all your voyages: your cruises, the photos taken on board, your packing list and everything you need before departure.',
+    'join.b1.title' => 'All your cruises in one place',
+    'join.b1.text'  => 'See where you are going, with whom and when. With a countdown to boarding.',
+    'join.b2.title' => 'Your packing list',
+    'join.b2.text'  => 'Prepared by us for every destination. Tick it off as you pack.',
+    'join.b3.title' => 'Photos from on board',
+    'join.b3.text'  => 'After every voyage, the photos you appear in land on your wall. You decide whether it stays private.',
+    'join.b4.title' => 'News and announcements',
+    'join.b4.text'  => 'Schedule changes, remaining spots, what to prepare before departure.',
+    'join.form'     => 'Create your account',
+    'join.have'     => 'Already have an account?',
+
+    /* Form */
+    'form.name'      => 'Your name',
+    'form.email'     => 'Email',
+    'form.phone'     => 'Phone',
+    'form.password'  => 'Password',
+    'form.password2' => 'Confirm password',
+    'form.password_hint' => 'At least 8 characters.',
+    'form.submit_join'   => 'Create account',
+    'form.remember'  => 'Remember me',
+    'form.forgot'    => 'Forgot your password?',
+    'form.login'     => 'Log in',
+    'form.consent_photo' => 'I agree to appear in photographs taken on board and used within the club.',
+    'form.consent_gdpr'  => 'I accept data storage according to the privacy policy.',
+
+    /* Auth */
+    'login.title'    => 'Welcome back',
+    'login.lead'     => 'Log in to your member account.',
+    'login.no_account' => 'No account yet?',
+    'forgot.title'   => 'Forgot your password?',
+    'forgot.lead'    => 'Give us your email address and we will send you a reset link.',
+    'forgot.submit'  => 'Send the link',
+    'reset.title'    => 'New password',
+    'reset.submit'   => 'Save password',
+    'back_to_login'  => '← Back to login',
+
+    /* Dashboard */
+    'dash.hello'        => 'Hello, :name',
+    'dash.member_since' => 'Member since :date',
+    'dash.current'      => 'Your cruise, right now',
+    'dash.next'         => 'Your next cruise',
+    'dash.upcoming'     => 'Upcoming cruises',
+    'dash.past'         => 'Past cruises',
+    'dash.checklist'    => 'Packing list',
+    'dash.checklist_done' => ':done of :total',
+    'dash.news'         => 'Announcements',
+    'dash.days_left'    => 'days until boarding',
+    'dash.day_left'     => 'day until boarding',
+    'dash.on_board'     => 'You are on board 🌊',
+    'dash.no_trips'     => 'You have no cruises yet. Once you book your first voyage, it appears here.',
+    'dash.see_calendar' => 'See the cruise calendar',
+    'dash.no_news'      => 'No announcements yet.',
+    'dash.pinned'       => 'Important',
+    'dash.no_past'      => 'Completed cruises will appear here, with the photos from on board.',
+    'dash.nights'       => ':n nights',
+
+    /* Profile */
+    'profile.title'     => 'My profile',
+    'profile.photo'     => 'Profile photo',
+    'profile.photo_hint'=> 'JPG or PNG, 2 MB maximum.',
+    'profile.save'      => 'Save',
+    'profile.saved'     => 'Your profile has been updated.',
+    'profile.password'  => 'Change password',
+    'profile.current_password' => 'Current password',
+    'profile.new_password'     => 'New password',
+    'profile.password_saved'   => 'Your password has been changed.',
+    'profile.wall'      => 'My photo wall',
+    'profile.wall_public' => 'Make my wall public, so I can share it with a link.',
+    'profile.wall_hint' => 'Private by default. Group photos stay visible inside the club only, even when your wall is public.',
+];
