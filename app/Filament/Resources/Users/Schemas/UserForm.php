@@ -7,9 +7,11 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use App\Support\ImageProcessor;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class UserForm
 {
@@ -43,7 +45,11 @@ class UserForm
                             ->image()
                             ->avatar()
                             ->imageEditor()
-                            ->directory('avatars'),
+                            ->helperText('Se comprimă și se convertește automat în WebP.')
+                            // Conversia in WebP se face la salvare, nu in browser
+                            ->saveUploadedFileUsing(
+                                fn (TemporaryUploadedFile $file) => ImageProcessor::storeAvatar($file->getRealPath())
+                            ),
                     ]),
 
                 Section::make('Statut în club')

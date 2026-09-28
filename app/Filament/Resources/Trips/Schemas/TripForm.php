@@ -11,8 +11,10 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use App\Support\ImageProcessor;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class TripForm
 {
@@ -69,7 +71,10 @@ class TripForm
                             ->label('Imagine de copertă')
                             ->image()
                             ->imageEditor()
-                            ->directory('trips')
+                            ->helperText('Se redimensionează la 1600px și se convertește automat în WebP.')
+                            ->saveUploadedFileUsing(
+                                fn (TemporaryUploadedFile $file) => ImageProcessor::storeCover($file->getRealPath())
+                            )
                             ->columnSpanFull(),
                         TextInput::make('drive_folder_id')
                             ->label('Folder Google Drive')

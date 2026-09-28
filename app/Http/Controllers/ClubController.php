@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Models\ChecklistItem;
 use App\Models\Trip;
+use App\Support\ImageProcessor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ClubController extends Controller
@@ -100,10 +100,8 @@ class ClubController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            if ($user->avatar_path) {
-                Storage::disk('public')->delete($user->avatar_path);
-            }
-            $data['avatar_path'] = $request->file('avatar')->store('avatars', 'public');
+            ImageProcessor::delete($user->avatar_path);
+            $data['avatar_path'] = ImageProcessor::storeAvatar($request->file('avatar'));
         }
 
         $data['wall_public'] = $request->boolean('wall_public');
