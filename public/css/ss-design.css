@@ -146,9 +146,15 @@ h3 { font-size: 1.05rem; }
 .hdr__cell {
   width: var(--header-h);
   display: flex; align-items: center; justify-content: center;
+  /* border: none intai, altfel butonul pastreaza conturul implicit
+     al browserului pe celelalte trei laturi */
+  border: none;
   border-left: 1px solid var(--line-strong);
-  background: none; cursor: pointer;
+  background: none; padding: 0; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  color: inherit;
 }
+.hdr__cell:focus-visible { outline: 2px solid var(--gold); outline-offset: -3px; }
 
 /* Doua linii, a doua mai scurta. La deschidere devin X. */
 .burger {
