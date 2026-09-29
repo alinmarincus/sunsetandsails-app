@@ -130,10 +130,16 @@ h3 { font-size: 1.05rem; }
   padding-inline: var(--gutter);
   min-width: 0;
 }
+/* Logo orizontal — raport 5,53:1, deci la 26px inaltime ocupa ~144px */
 .hdr__brand img { height: 26px; width: auto; flex-shrink: 0; }
-.hdr__brand span {
-  font-size: .98rem; font-weight: 600; letter-spacing: -.01em;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+
+/* Eticheta de sectiune de langa logo: „Club", „Shop" */
+.hdr__brand b {
+  font-size: .62rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold);
+  padding-left: 11px; margin-left: 2px;
+  border-left: 1px solid var(--line-strong);
+  white-space: nowrap;
 }
 
 /* Celula din dreapta, separată prin linie verticală */

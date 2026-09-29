@@ -16,8 +16,8 @@
 <header class="site-header">
   <div class="wrap">
     <a href="{{ route('club.dashboard', app()->getLocale()) }}" class="brand">
-      <img src="{{ asset('images/logo.png') }}" alt="Sunset &amp; Sails">
-      <span>{{ __('club.brand') }}</span>
+      <img src="{{ asset('images/logo-horizontal.svg') }}" alt="Sunset &amp; Sails">
+      <b>{{ __('club.brand') }}</b>
     </a>
 
     <div class="header-right">

@@ -45,12 +45,18 @@ a:hover { color: var(--sunset); }
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; padding-block: 10px;
 }
-.brand { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
-.brand img { height: 30px; width: auto; }
-.brand span {
-  font-family: var(--serif); font-size: .95rem; font-weight: 600;
-  letter-spacing: .04em; color: var(--text);
-  white-space: nowrap;                 /* nu se rupe pe doua randuri */
+.brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; min-width: 0; }
+
+/* Logo orizontal, raport 5,53:1 — la 24px inaltime ocupa ~133px */
+.brand img { height: 24px; width: auto; flex-shrink: 0; }
+
+/* Eticheta „Clubul", despartita de logo printr-o linie fina */
+.brand b {
+  font-size: .6rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold);
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,255,255,.18);
+  white-space: nowrap;
 }
 
 .lang-switch { display: flex; gap: 4px; font-size: .7rem; flex-shrink: 0; }
@@ -110,8 +116,7 @@ a:hover { color: var(--sunset); }
   .header-nav { display: flex; }
   .burger { display: none; }
   .nav-drawer { display: none; }
-  .brand img { height: 34px; }
-  .brand span { font-size: 1rem; }
+  .brand img { height: 28px; }
 }
 
 main { padding-block: 32px 64px; }
