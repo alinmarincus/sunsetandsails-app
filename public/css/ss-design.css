@@ -254,20 +254,42 @@ h3 { font-size: 1.05rem; }
   position: fixed; inset: 0; z-index: 60;
   background: rgba(6,16,29,.97);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  padding: calc(var(--header-h) + 32px) var(--gutter) 32px;
+  padding: var(--header-h) var(--gutter) 24px;
+  display: flex; flex-direction: column;
+  overflow-y: auto; overscroll-behavior: contain;
   opacity: 0; pointer-events: none; transition: opacity .3s ease;
 }
 .drawer.is-open { opacity: 1; pointer-events: all; }
-.drawer a {
-  display: flex; align-items: baseline; gap: 16px;
-  padding: 18px 0; border-bottom: 1px solid var(--line-faint);
-  font-size: 1.9rem; font-weight: 600; letter-spacing: -.03em;
-  color: var(--ink-soft); transition: color .2s;
+
+.drawer__main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 16px; }
+
+.drawer__main a {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 13px 0; border-bottom: 1px solid var(--line-faint);
+  font-size: 1.45rem; font-weight: 600; letter-spacing: -.03em;
+  color: var(--ink-soft); transition: color .2s, gap .25s;
 }
-.drawer a:hover { color: var(--ink); }
-.drawer a em {
-  font-style: normal; font-size: .68rem; font-weight: 600;
-  letter-spacing: .1em; color: var(--sunset); opacity: .8;
+.drawer__main a:last-child { border-bottom: none; }
+.drawer__main a:hover { color: var(--ink); gap: 20px; }
+.drawer__main a em {
+  font-style: normal; font-size: .62rem; font-weight: 600;
+  letter-spacing: .1em; color: var(--sunset); opacity: .75;
+  flex-shrink: 0; min-width: 18px;
+}
+
+/* Linkuri secundare, jos: „Cum funcționează", „Ambasadori" */
+.drawer__foot {
+  display: flex; flex-wrap: wrap; gap: 8px 22px;
+  padding-top: 18px; border-top: 1px solid var(--line);
+}
+.drawer__foot a {
+  font-size: .82rem; font-weight: 500; color: var(--ink-mute);
+  transition: color .2s;
+}
+.drawer__foot a:hover { color: var(--gold); }
+
+@media (min-height: 780px) {
+  .drawer__main a { font-size: 1.62rem; padding: 15px 0; }
 }
 
 
