@@ -47,8 +47,8 @@ a:hover { color: var(--sunset); }
 }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; min-width: 0; }
 
-/* Logo orizontal, raport 5,53:1 — la 24px inaltime ocupa ~133px */
-.brand img { height: 24px; width: auto; flex-shrink: 0; }
+/* Logo orizontal, raport 5,83:1 — la 30px inaltime ocupa ~175px */
+.brand img { height: 30px; width: auto; flex-shrink: 0; }
 
 /* Eticheta „Clubul", despartita de logo printr-o linie fina */
 .brand b {
@@ -57,6 +57,11 @@ a:hover { color: var(--sunset); }
   padding-left: 10px;
   border-left: 1px solid rgba(255,255,255,.18);
   white-space: nowrap;
+}
+
+/* Pe ecrane foarte inguste, logoul mare e mai important decat eticheta */
+@media (max-width: 400px) {
+  .brand b { display: none; }
 }
 
 .lang-switch { display: flex; gap: 4px; font-size: .7rem; flex-shrink: 0; }

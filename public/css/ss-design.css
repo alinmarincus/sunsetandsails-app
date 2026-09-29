@@ -130,8 +130,8 @@ h3 { font-size: 1.05rem; }
   padding-inline: var(--gutter);
   min-width: 0;
 }
-/* Logo orizontal — raport 5,53:1, deci la 26px inaltime ocupa ~144px */
-.hdr__brand img { height: 26px; width: auto; flex-shrink: 0; }
+/* Logo orizontal — raport 5,83:1, deci la 32px inaltime ocupa ~187px */
+.hdr__brand img { height: 32px; width: auto; flex-shrink: 0; }
 
 /* Eticheta de sectiune de langa logo: „Club", „Shop" */
 .hdr__brand b {
