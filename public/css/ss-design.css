@@ -111,8 +111,9 @@ h3 { font-size: 1.05rem; }
 /* ═══ ANTET ═══════════════════════════════════════════════════════════════
    Transparent peste fotografie, cu linii fine care îl împart în celule.    */
 
+/* z-index peste meniu (60), ca butonul de inchidere sa ramana apasabil */
 .hdr {
-  position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+  position: absolute; top: 0; left: 0; right: 0; z-index: 70;
   height: var(--header-h);
   display: flex; align-items: stretch;
   border-bottom: 1px solid var(--line-strong);

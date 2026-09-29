@@ -211,11 +211,24 @@
 
 <script>
 var b = document.getElementById('burger'), d = document.getElementById('drawer');
-b.addEventListener('click', function () {
-  var open = !d.classList.contains('is-open');
+
+function setMenu(open) {
   d.classList.toggle('is-open', open);
   b.querySelector('.burger').classList.toggle('is-open', open);
+  b.setAttribute('aria-label', open ? 'Închide meniul' : 'Meniu');
   document.body.style.overflow = open ? 'hidden' : '';
+}
+
+b.addEventListener('click', function () {
+  setMenu(!d.classList.contains('is-open'));
+});
+
+/* se inchide si cu tasta Escape, si dupa ce alegi o pagina */
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') setMenu(false);
+});
+d.querySelectorAll('a').forEach(function (a) {
+  a.addEventListener('click', function () { setMenu(false); });
 });
 </script>
 </body>
