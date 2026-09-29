@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A1628">
+<meta name="robots" content="noindex">
+<title>Sunset &amp; Sails — sistem de design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/ss-design.css">
+<style>
+  /* doar pentru pagina asta de previzualizare */
+  .demo-note {
+    background: rgba(232,119,58,.08);
+    border: 1px solid rgba(232,119,58,.25);
+    border-radius: 10px; padding: 12px 14px;
+    font-size: .78rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .swatch { height: 56px; border-radius: 10px; border: 1px solid var(--line); }
+  .swatch-label { font-size: .68rem; color: var(--ink-mute); margin-top: 6px; letter-spacing: .04em; }
+  .stack > * + * { margin-top: 14px; }
+  .variant-label {
+    font-size: .62rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero__img" style="background-image:url('images/demo-trip.webp')"></div>
+  <div class="hero__veil"></div>
+  <div class="hero__grid"><i></i><i></i></div>
+
+  <header class="hdr">
+    <div class="hdr__brand">
+      <img src="images/logo.png" alt="Sunset &amp; Sails">
+      <span>Sunset &amp; Sails</span>
+    </div>
+    <button class="hdr__cell" id="burger" aria-label="Meniu">
+      <span class="burger"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <div class="hero__body wrap">
+    <p class="eyebrow" style="margin-bottom:16px">Croaziere 2027</p>
+    <h1 class="display">Marea<br>te așteaptă</h1>
+    <p class="lead">Croaziere cu skipper în Grecia, Croația și mai departe. Fără experiență, fără griji.</p>
+    <div style="margin-top:26px; display:flex; gap:10px; flex-wrap:wrap">
+      <a href="#" class="btn btn--light">
+        Vezi calendarul
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+      <a href="#" class="btn btn--line">Configurează</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MENIU ═══ -->
+<nav class="drawer" id="drawer">
+  <a href="#"><em>01</em> Croaziere</a>
+  <a href="#"><em>02</em> Destinații</a>
+  <a href="#"><em>03</em> Clubul</a>
+  <a href="#"><em>04</em> Ulei de măsline</a>
+  <a href="#"><em>05</em> Contact</a>
+</nav>
+
+<!-- ═══ TITLURI: DOUĂ VARIANTE ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">De ales — titlurile mari</p>
+    </div>
+
+    <p class="demo-note" style="margin-bottom:26px">
+      Aceeași pagină, două personalități. Prima e cea din referința pe care mi-ai
+      trimis-o. A doua e fontul pe care îl folosim acum la Sunset &amp; Sails.
+      Alege una: de ea depinde cum arată tot site-ul.
+    </p>
+
+    <div class="stack">
+      <div>
+        <p class="variant-label">Varianta A — Inter, strâns și greu</p>
+        <div class="card" style="padding:24px 20px">
+          <h2 class="display display--sm">Insulele<br>Ionice</h2>
+          <p class="muted" style="margin-top:10px">23–30 mai 2026 · 7 nopți</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="variant-label">Varianta B — Cormorant, editorial</p>
+        <div class="card" style="padding:24px 20px">
+          <h2 class="display display--sm display--serif">Insulele<br>Ionice</h2>
+          <p class="muted" style="margin-top:10px">23–30 mai 2026 · 7 nopți</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARDURI ═══ -->
+<section class="section" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Carduri de croazieră</p>
+      <a href="#" class="muted">Toate →</a>
+    </div>
+
+    <div class="grid-2 stack">
+      <a href="#" class="card-photo">
+        <div class="card-photo__img" style="background-image:url('images/demo-trip.webp')"></div>
+        <div class="card-photo__veil"></div>
+        <div class="card-photo__body">
+          <span class="tag">Grecia</span>
+          <h3 style="font-size:1.4rem; margin-top:10px">Ciclade</h3>
+          <p class="muted">3–10 octombrie 2026 · de la 900 €</p>
+        </div>
+      </a>
+
+      <a href="#" class="card-photo" style="min-height:220px">
+        <div class="card-photo__img" style="background-image:url('images/demo-trip.webp'); background-position:70% center"></div>
+        <div class="card-photo__veil"></div>
+        <div class="card-photo__body">
+          <span class="tag tag--light">Finalizată</span>
+          <h3 style="font-size:1.4rem; margin-top:10px">Golful Saronic</h3>
+          <p class="muted">4–11 aprilie 2026</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LISTĂ CU LINII ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Itinerar</p></div>
+    <ul class="rows">
+      <li>
+        <p class="eyebrow" style="color:var(--ink-mute); margin-bottom:3px">Ziua 1 · 23 mai</p>
+        <p style="font-weight:600">Lefkada — îmbarcare</p>
+        <p class="muted">Sosire la bord, briefing, prima noapte în marină.</p>
+      </li>
+      <li>
+        <p class="eyebrow" style="color:var(--ink-mute); margin-bottom:3px">Ziua 2 · 24 mai</p>
+        <p style="font-weight:600">Nydri → Meganisi</p>
+        <p class="muted">Ancoră în golful Atherinos, ape turcoaz.</p>
+      </li>
+      <li>
+        <p class="eyebrow" style="color:var(--ink-mute); margin-bottom:3px">Ziua 3 · 25 mai</p>
+        <p style="font-weight:600">Ithaca</p>
+        <p class="muted">Port Vathi, plimbare prin sat, seară la tavernă.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ BUTOANE ȘI FORMULAR ═══ -->
+<section class="section" style="background:var(--navy-deep)">
+  <div class="wrap wrap--narrow">
+    <div class="section-head"><p class="eyebrow">Butoane</p></div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:34px">
+      <button class="btn btn--sunset">Rezervă un loc</button>
+      <button class="btn btn--light">Vezi oferta</button>
+      <button class="btn btn--line">Detalii</button>
+      <button class="btn btn--line btn--sm">Mic</button>
+    </div>
+
+    <div class="section-head"><p class="eyebrow">Formular</p></div>
+    <div class="card">
+      <div class="field">
+        <label for="d-name">Numele tău</label>
+        <input id="d-name" type="text" placeholder="Ion Popescu">
+      </div>
+      <div class="field">
+        <label for="d-mail">Email</label>
+        <input id="d-mail" type="email" placeholder="ion@email.com">
+      </div>
+      <button class="btn btn--sunset btn--block">Trimite</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CULORI ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Culori</p></div>
+    <div class="grid-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px">
+      <div><div class="swatch" style="background:#0A1628"></div><p class="swatch-label">Navy · fundal</p></div>
+      <div><div class="swatch" style="background:#111e35"></div><p class="swatch-label">Surface · carduri</p></div>
+      <div><div class="swatch" style="background:#E8773A"></div><p class="swatch-label">Sunset · acțiune</p></div>
+      <div><div class="swatch" style="background:#D4A574"></div><p class="swatch-label">Gold · accent</p></div>
+      <div><div class="swatch" style="background:#fff"></div><p class="swatch-label">Alb · buton</p></div>
+      <div><div class="swatch" style="background:rgba(255,255,255,.12)"></div><p class="swatch-label">Linie fină</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">Sistem de design · Sunset &amp; Sails</footer>
+
+<script>
+var b = document.getElementById('burger'), d = document.getElementById('drawer');
+b.addEventListener('click', function () {
+  var open = !d.classList.contains('is-open');
+  d.classList.toggle('is-open', open);
+  b.querySelector('.burger').classList.toggle('is-open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Sunset & Sails — sistem de design
+   Se aplică la fel pe site și în club. Mobile-first.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Culori ─────────────────────────────────────────────────────────── */
+  --navy:      #0A1628;   /* fundal principal */
+  --navy-deep: #06101d;   /* fundal mai adânc, pentru contrast */
+  --surface:   #111e35;   /* carduri, panouri */
+  --sunset:    #E8773A;   /* accent: acțiune, etichete */
+  --gold:      #D4A574;   /* accent cald, secundar */
+
+  --ink:       #ffffff;
+  --ink-soft:  rgba(255,255,255,.72);
+  --ink-mute:  rgba(255,255,255,.45);
+  --ink-faint: rgba(255,255,255,.22);
+
+  /* Liniile fine — semnătura vizuală. Trei intensități. */
+  --line-strong: rgba(255,255,255,.20);   /* antet, separatoare principale */
+  --line:        rgba(255,255,255,.12);   /* margini de card */
+  --line-faint:  rgba(255,255,255,.07);   /* grilă decorativă */
+
+  /* ── Tipografie ─────────────────────────────────────────────────────── */
+  --sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+
+  /* ── Ritm ───────────────────────────────────────────────────────────── */
+  --gutter: 20px;           /* marginea laterală, pe telefon */
+  --header-h: 64px;
+  --radius: 14px;
+  --radius-pill: 100px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+
+/* ═══ TIPOGRAFIE ═══════════════════════════════════════════════════════════
+   Display = titluri mari peste fotografie: strânse, grele, pe un rând-două.
+   Restul = Inter normal, lizibil pe telefon.                                */
+
+.display {
+  font-family: var(--sans);
+  font-weight: 600;
+  line-height: .95;
+  letter-spacing: -0.045em;      /* strâns, ca în referință */
+  font-size: clamp(3.2rem, 17vw, 8rem);
+}
+.display--sm { font-size: clamp(2.2rem, 11vw, 4rem); letter-spacing: -0.035em; }
+
+/* Varianta editorială, cu serif — pentru nume de croaziere și citate */
+.display--serif {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+
+h1, h2, h3 { font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+h1 { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 5.5vw, 2rem); }
+h3 { font-size: 1.05rem; }
+
+.lead { font-size: 1.02rem; color: var(--ink-soft); line-height: 1.6; }
+.muted { font-size: .875rem; color: var(--ink-mute); }
+
+/* Eticheta mică, majuscule, răsfirate — folosită peste tot ca „supratitlu" */
+.eyebrow {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--sunset);
+}
+
+
+/* ═══ GRILĂ ȘI LINII ══════════════════════════════════════════════════════ */
+
+.wrap { width: 100%; max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+.wrap--narrow { max-width: 480px; }
+
+/* Linie orizontală fină, pe toată lățimea */
+.rule { height: 1px; background: var(--line-strong); border: none; }
+.rule--faint { background: var(--line-faint); }
+
+/* Secțiune cu linie sus și titlu de secțiune */
+.section { padding-block: 44px; }
+.section-head {
+  display: flex; align-items: center; gap: 14px;
+  padding-bottom: 14px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.section-head .eyebrow { flex: 1; }
+
+
+/* ═══ ANTET ═══════════════════════════════════════════════════════════════
+   Transparent peste fotografie, cu linii fine care îl împart în celule.    */
+
+.hdr {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+  height: var(--header-h);
+  display: flex; align-items: stretch;
+  border-bottom: 1px solid var(--line-strong);
+}
+.hdr--solid {
+  position: sticky;
+  background: rgba(10,22,40,.88);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+
+.hdr__brand {
+  flex: 1;
+  display: flex; align-items: center; gap: 10px;
+  padding-inline: var(--gutter);
+  min-width: 0;
+}
+.hdr__brand img { height: 26px; width: auto; flex-shrink: 0; }
+.hdr__brand span {
+  font-size: .98rem; font-weight: 600; letter-spacing: -.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Celula din dreapta, separată prin linie verticală */
+.hdr__cell {
+  width: var(--header-h);
+  display: flex; align-items: center; justify-content: center;
+  border-left: 1px solid var(--line-strong);
+  background: none; cursor: pointer;
+}
+
+.burger { display: flex; flex-direction: column; gap: 5px; padding: 0; border: none; background: none; cursor: pointer; }
+.burger span { display: block; width: 20px; height: 1.5px; background: var(--ink); transition: transform .3s, opacity .3s; }
+.burger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+
+/* ═══ HERO ════════════════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: calc(var(--header-h) + 24px) 0 32px;
+  overflow: hidden;
+}
+.hero__img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.hero__veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(6,16,29,.55) 0%, rgba(6,16,29,.15) 35%, rgba(6,16,29,.82) 100%);
+}
+/* Grila decorativă, abia vizibilă — motivul de linii din referință */
+.hero__grid { position: absolute; inset: 0; pointer-events: none; }
+.hero__grid i {
+  position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line-faint);
+}
+.hero__grid i:nth-child(1) { left: 33.333%; }
+.hero__grid i:nth-child(2) { left: 66.666%; }
+
+.hero__body { position: relative; z-index: 1; }
+.hero .display { margin-bottom: 14px; }
+.hero .lead { max-width: 30ch; }
+
+
+/* ═══ BUTOANE ═════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: inherit; font-size: .875rem; font-weight: 600; letter-spacing: -.01em;
+  padding: 16px 28px; border-radius: var(--radius-pill);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .2s;
+}
+.btn svg { flex-shrink: 0; }
+
+/* Alb, ca în referință — pentru acțiunea principală peste fotografie */
+.btn--light { background: #fff; color: var(--navy); }
+.btn--light:hover { background: rgba(255,255,255,.88); transform: translateY(-1px); }
+
+/* Portocaliu — accentul de brand, pentru acțiuni pe fundal închis */
+.btn--sunset { background: var(--sunset); color: #fff; }
+.btn--sunset:hover { background: #f2854a; transform: translateY(-1px); }
+
+/* Contur fin — acțiuni secundare */
+.btn--line { background: none; color: var(--ink); border-color: var(--line-strong); }
+.btn--line:hover { border-color: rgba(255,255,255,.45); }
+
+.btn--block { width: 100%; }
+.btn--sm { padding: 11px 20px; font-size: .8rem; }
+
+
+/* ═══ CARDURI ═════════════════════════════════════════════════════════════ */
+
+/* Card cu fotografie — croaziere */
+.card-photo {
+  position: relative; display: block;
+  border-radius: var(--radius); overflow: hidden;
+  min-height: 300px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  border: 1px solid var(--line);
+}
+.card-photo__img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .6s ease; }
+.card-photo:hover .card-photo__img { transform: scale(1.04); }
+.card-photo__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(6,16,29,0) 30%, rgba(6,16,29,.9) 100%);
+}
+.card-photo__body { position: relative; z-index: 1; padding: 18px; }
+
+/* Card simplu, pe fundal */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* Etichetă mică, cu contur */
+.tag {
+  display: inline-block;
+  font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sunset);
+  border: 1px solid rgba(232,119,58,.4);
+  border-radius: var(--radius-pill);
+  padding: 4px 11px;
+}
+.tag--light { color: var(--ink-soft); border-color: var(--line-strong); }
+
+/* Listă cu linii fine între rânduri — meniuri, itinerar, detalii */
+.rows { list-style: none; }
+.rows > li { padding: 14px 0; border-bottom: 1px solid var(--line-faint); }
+.rows > li:last-child { border-bottom: none; }
+
+
+/* ═══ MENIU ═══════════════════════════════════════════════════════════════ */
+
+.drawer {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(6,16,29,.97);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  padding: calc(var(--header-h) + 32px) var(--gutter) 32px;
+  opacity: 0; pointer-events: none; transition: opacity .3s ease;
+}
+.drawer.is-open { opacity: 1; pointer-events: all; }
+.drawer a {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid var(--line-faint);
+  font-size: 1.9rem; font-weight: 600; letter-spacing: -.03em;
+  color: var(--ink-soft); transition: color .2s;
+}
+.drawer a:hover { color: var(--ink); }
+.drawer a em {
+  font-style: normal; font-size: .68rem; font-weight: 600;
+  letter-spacing: .1em; color: var(--sunset); opacity: .8;
+}
+
+
+/* ═══ FORMULARE ═══════════════════════════════════════════════════════════ */
+
+.field { margin-bottom: 18px; }
+.field label {
+  display: block; font-size: .72rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-mute); margin-bottom: 8px;
+}
+.field input, .field textarea, .field select {
+  width: 100%; padding: 14px 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink); font-size: 1rem; font-family: inherit;
+  outline: none; transition: border-color .2s, background .2s;
+}
+.field input:focus, .field textarea:focus {
+  border-color: rgba(212,165,116,.6);
+  background: rgba(255,255,255,.06);
+}
+
+
+/* ═══ SUBSOL ══════════════════════════════════════════════════════════════ */
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 28px var(--gutter);
+  text-align: center;
+  font-size: .72rem; color: var(--ink-faint);
+  letter-spacing: .04em;
+}
+
+
+/* ═══ ECRANE MARI ═════════════════════════════════════════════════════════ */
+
+@media (min-width: 760px) {
+  :root { --gutter: 40px; --header-h: 76px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .section { padding-block: 72px; }
+  .hero .lead { font-size: 1.12rem; }
+}
