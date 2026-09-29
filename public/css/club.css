@@ -69,23 +69,23 @@ a:hover { color: var(--sunset); }
 /* ── Navigatie: burger pe mobil, in linie pe ecrane late ────────────────── */
 .header-right { display: flex; align-items: center; gap: 10px; }
 
+/* Doua linii, a doua mai scurta — acelasi meniu ca pe site */
 .burger {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 4.5px; width: 40px; height: 40px; padding: 0;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 9px; cursor: pointer;
-  transition: border-color .2s;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: 6px; width: 40px; height: 40px; padding: 0 9px;
+  background: none; border: none; cursor: pointer;
 }
-.burger:hover { border-color: rgba(212,165,116,.5); }
 .burger span {
-  display: block; width: 17px; height: 1.5px; border-radius: 2px;
-  background: rgba(255,255,255,.85);
-  transition: transform .3s, opacity .3s, width .3s;
+  display: block; height: 1.5px;
+  background: rgba(255,255,255,.9);
+  transition: transform .3s ease, width .3s ease;
 }
-.burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.burger.is-open span:nth-child(2) { opacity: 0; width: 0; }
-.burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.burger span:nth-child(1) { width: 22px; }
+.burger span:nth-child(2) { width: 14px; }
+
+.burger.is-open span { width: 22px; }
+.burger.is-open span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
 
 .nav-drawer {
   position: fixed; inset: 0; z-index: 90;

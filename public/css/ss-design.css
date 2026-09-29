@@ -150,11 +150,21 @@ h3 { font-size: 1.05rem; }
   background: none; cursor: pointer;
 }
 
-.burger { display: flex; flex-direction: column; gap: 5px; padding: 0; border: none; background: none; cursor: pointer; }
-.burger span { display: block; width: 20px; height: 1.5px; background: var(--ink); transition: transform .3s, opacity .3s; }
-.burger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.burger.is-open span:nth-child(2) { opacity: 0; }
-.burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+/* Doua linii, a doua mai scurta. La deschidere devin X. */
+.burger {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  padding: 0; border: none; background: none; cursor: pointer;
+}
+.burger span {
+  display: block; height: 1.5px; background: var(--ink);
+  transition: transform .3s ease, width .3s ease;
+}
+.burger span:nth-child(1) { width: 22px; }
+.burger span:nth-child(2) { width: 14px; }
+
+.burger.is-open span { width: 22px; }
+.burger.is-open span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
 
 
 /* ═══ HERO ════════════════════════════════════════════════════════════════ */
@@ -172,14 +182,6 @@ h3 { font-size: 1.05rem; }
   background:
     linear-gradient(to bottom, rgba(6,16,29,.55) 0%, rgba(6,16,29,.15) 35%, rgba(6,16,29,.82) 100%);
 }
-/* Grila decorativă, abia vizibilă — motivul de linii din referință */
-.hero__grid { position: absolute; inset: 0; pointer-events: none; }
-.hero__grid i {
-  position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line-faint);
-}
-.hero__grid i:nth-child(1) { left: 33.333%; }
-.hero__grid i:nth-child(2) { left: 66.666%; }
-
 .hero__body { position: relative; z-index: 1; }
 .hero .display { margin-bottom: 14px; }
 .hero .lead { max-width: 30ch; }

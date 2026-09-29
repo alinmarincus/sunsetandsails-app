@@ -59,7 +59,7 @@
 
       {{-- Pe mobil, navigatia intra intr-un meniu --}}
       <button class="burger" id="burger" aria-label="{{ __('club.nav.menu') }}" aria-expanded="false">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
     </div>
   </div>
