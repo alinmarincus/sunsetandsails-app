@@ -216,13 +216,21 @@
   var v = document.getElementById('hero-video');
   if (!v) return;
 
+  var wide = window.matchMedia('(min-width: 760px)').matches;
+
+  // Coperta potrivită, înainte să înceapă descărcarea video-ului
+  v.poster = wide ? 'images/hero-poster-wide.webp' : 'images/hero-poster-tall.webp';
+
   var c = navigator.connection || {};
   var slab = c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '');
   var reduceMiscare = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (slab || reduceMiscare) return;
 
-  [['video/sunset_and_sails_hero_horizontal.webm', 'video/webm'],
-   ['video/sunset_and_sails_hero_horizontal.mp4',  'video/mp4']].forEach(function (s) {
+  var baza = wide
+    ? 'video/sunset_and_sails_hero_horizontal'
+    : 'video/sunset_and_sails_hero_vertical';
+
+  [[baza + '.webm', 'video/webm'], [baza + '.mp4', 'video/mp4']].forEach(function (s) {
     var el = document.createElement('source');
     el.src = s[0]; el.type = s[1];
     v.appendChild(el);
