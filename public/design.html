@@ -31,7 +31,9 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero__img" style="background-image:url('images/demo-trip.webp')"></div>
+  <video class="hero__video" id="hero-video"
+         autoplay muted loop playsinline preload="none"
+         poster="images/hero-poster-wide.webp" aria-hidden="true"></video>
   <div class="hero__veil"></div>
 
   <header class="hdr">
@@ -208,6 +210,30 @@
 <footer class="footer">Sistem de design · Sunset &amp; Sails</footer>
 
 <script>
+/* Video de fundal în hero. Pe conexiuni slabe sau cu reducerea
+   animațiilor activată, rămâne doar imaginea de copertă. */
+(function () {
+  var v = document.getElementById('hero-video');
+  if (!v) return;
+
+  var c = navigator.connection || {};
+  var slab = c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '');
+  var reduceMiscare = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (slab || reduceMiscare) return;
+
+  [['video/sunset_and_sails_hero_horizontal.webm', 'video/webm'],
+   ['video/sunset_and_sails_hero_horizontal.mp4',  'video/mp4']].forEach(function (s) {
+    var el = document.createElement('source');
+    el.src = s[0]; el.type = s[1];
+    v.appendChild(el);
+  });
+
+  v.preload = 'metadata';
+  v.load();
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
+
 var b = document.getElementById('burger'), d = document.getElementById('drawer');
 
 function setMenu(open) {

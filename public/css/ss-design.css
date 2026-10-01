@@ -183,6 +183,14 @@ h3 { font-size: 1.05rem; }
   overflow: hidden;
 }
 .hero__img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+
+/* Video de fundal — se comporta la fel ca o imagine cu `cover` */
+.hero__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  pointer-events: none;
+}
 .hero__veil {
   position: absolute; inset: 0;
   background:
