@@ -3,21 +3,44 @@
 
 @section('content')
 
-  <section style="max-width:640px">
-    <p class="eyebrow">{{ __('club.join.eyebrow') }}</p>
-    <h1>{!! __('club.join.title') !!}</h1>
-    <p class="lead" style="margin-top:16px">{{ __('club.join.lead') }}</p>
-  </section>
+  {{-- ── Hero cu video ─────────────────────────────────────────────────── --}}
+  <section class="join-hero">
+    <video class="join-hero__video" id="join-video"
+           autoplay muted loop playsinline preload="none"
+           poster="{{ asset('images/hero-poster-tall.webp') }}" aria-hidden="true"></video>
+    <div class="join-hero__veil"></div>
 
-  <section class="section grid grid--2">
-    @foreach (['b1', 'b2', 'b3', 'b4'] as $b)
-      <div class="card">
-        <h3 style="color:var(--gold)">{{ __("club.join.$b.title") }}</h3>
-        <p class="muted" style="margin-top:6px">{{ __("club.join.$b.text") }}</p>
+    <div class="join-hero__body">
+      <p class="eyebrow">{{ __('club.join.eyebrow') }}</p>
+      <h1 class="join-hero__title">{!! __('club.join.title') !!}</h1>
+      <p class="join-hero__lead">{{ __('club.join.lead') }}</p>
+
+      <div class="join-hero__actions">
+        <a href="#form" class="btn btn--light">
+          {{ __('club.join.cta') }}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19,12 12,19 5,12"/>
+          </svg>
+        </a>
+        <a href="{{ route('login') }}" class="btn btn--ghost">{{ __('club.form.login') }}</a>
       </div>
-    @endforeach
+    </div>
   </section>
 
+  {{-- ── Ce primești ───────────────────────────────────────────────────── --}}
+  <section class="section">
+    <div class="grid grid--2">
+      @foreach (['b1', 'b2', 'b3', 'b4'] as $b)
+        <div class="card">
+          <h3 style="color:var(--gold)">{{ __("club.join.$b.title") }}</h3>
+          <p class="muted" style="margin-top:6px">{{ __("club.join.$b.text") }}</p>
+        </div>
+      @endforeach
+    </div>
+  </section>
+
+  {{-- ── Formular ──────────────────────────────────────────────────────── --}}
   <section class="section" id="form" style="max-width:460px">
     <p class="eyebrow">{{ __('club.join.form') }}</p>
 
@@ -27,7 +50,7 @@
 
         <div class="field">
           <label for="name">{{ __('club.form.name') }}</label>
-          <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+          <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name">
           @error('name') <p class="error">{{ $message }}</p> @enderror
         </div>
 
@@ -69,5 +92,36 @@
       </p>
     </div>
   </section>
+
+<script>
+/* Video de fundal în hero: montaj vertical pe telefon, orizontal pe desktop.
+   Pe conexiuni lente sau cu reducerea animațiilor activată, rămâne coperta. */
+(function () {
+  var v = document.getElementById('join-video');
+  if (!v) return;
+
+  var wide = window.matchMedia('(min-width: 760px)').matches;
+  if (wide) v.poster = @json(asset('images/hero-poster-wide.webp'));
+
+  var c = navigator.connection || {};
+  var slab = c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '');
+  if (slab || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var baza = wide
+    ? @json(asset('video/sunset_and_sails_hero_horizontal'))
+    : @json(asset('video/sunset_and_sails_hero_vertical'));
+
+  [['.webm', 'video/webm'], ['.mp4', 'video/mp4']].forEach(function (s) {
+    var el = document.createElement('source');
+    el.src = baza + s[0]; el.type = s[1];
+    v.appendChild(el);
+  });
+
+  v.preload = 'metadata';
+  v.load();
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
+</script>
 
 @endsection

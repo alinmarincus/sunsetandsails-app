@@ -25,6 +25,7 @@ return [
     'join.b3.text'  => 'După fiecare ieșire, pozele în care apari ajung pe peretele tău. Tu decizi dacă rămâne privat.',
     'join.b4.title' => 'Anunțuri și noutăți',
     'join.b4.text'  => 'Schimbări de program, locuri rămase, pregătiri înainte de plecare.',
+    'join.cta'      => 'Intră în club',
     'join.form'     => 'Creează-ți contul',
     'join.have'     => 'Ai deja cont?',
 

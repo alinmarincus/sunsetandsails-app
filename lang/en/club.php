@@ -25,6 +25,7 @@ return [
     'join.b3.text'  => 'After every voyage, the photos you appear in land on your wall. You decide whether it stays private.',
     'join.b4.title' => 'News and announcements',
     'join.b4.text'  => 'Schedule changes, remaining spots, what to prepare before departure.',
+    'join.cta'      => 'Join the club',
     'join.form'     => 'Create your account',
     'join.have'     => 'Already have an account?',
 
