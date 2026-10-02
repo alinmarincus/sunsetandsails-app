@@ -7,7 +7,7 @@
   <section class="join-hero">
     <video class="join-hero__video" id="join-video"
            autoplay muted loop playsinline preload="none"
-           poster="{{ asset('images/hero-poster-tall.webp') }}" aria-hidden="true"></video>
+           poster="{{ asset('images/club-poster-tall.webp') }}" aria-hidden="true"></video>
     <div class="join-hero__veil"></div>
 
     <div class="join-hero__body">
@@ -107,9 +107,11 @@
   var slab = c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '');
   if (slab || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  /* Montajul vertical e filmat special pentru club. Cel orizontal urmeaza;
+     pana atunci, pe desktop ramane montajul de pe site. */
   var baza = wide
     ? @json(asset('video/sunset_and_sails_hero_horizontal'))
-    : @json(asset('video/sunset_and_sails_hero_vertical'));
+    : @json(asset('video/sunset_and_sails_club_hero_vertical'));
 
   [['.webm', 'video/webm'], ['.mp4', 'video/mp4']].forEach(function (s) {
     var el = document.createElement('source');
