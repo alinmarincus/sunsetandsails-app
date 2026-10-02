@@ -101,16 +101,15 @@
   if (!v) return;
 
   var wide = window.matchMedia('(min-width: 760px)').matches;
-  if (wide) v.poster = @json(asset('images/hero-poster-wide.webp'));
+  if (wide) v.poster = @json(asset('images/club-poster-wide.webp'));
 
   var c = navigator.connection || {};
   var slab = c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '');
   if (slab || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  /* Montajul vertical e filmat special pentru club. Cel orizontal urmeaza;
-     pana atunci, pe desktop ramane montajul de pe site. */
+  /* Ambele montaje sunt filmate pentru club */
   var baza = wide
-    ? @json(asset('video/sunset_and_sails_hero_horizontal'))
+    ? @json(asset('video/sunset_and_sails_club_hero_horizontal'))
     : @json(asset('video/sunset_and_sails_club_hero_vertical'));
 
   [['.webm', 'video/webm'], ['.mp4', 'video/mp4']].forEach(function (s) {
