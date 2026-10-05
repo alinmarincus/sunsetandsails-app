@@ -42,6 +42,7 @@ return [
     'form.login'     => 'Log in',
     'form.consent_photo' => 'I agree to appear in photographs taken on board and used within the club.',
     'form.consent_gdpr'  => 'I accept data storage according to the privacy policy.',
+    'form.errors_title'  => 'Something still needs fixing:',
 
     /* Auth */
     'login.title'    => 'Welcome back',

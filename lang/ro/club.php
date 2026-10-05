@@ -42,6 +42,7 @@ return [
     'form.login'     => 'Intră în cont',
     'form.consent_photo' => 'Sunt de acord să apar în fotografiile realizate la bord, folosite în club.',
     'form.consent_gdpr'  => 'Accept stocarea datelor conform politicii de confidențialitate.',
+    'form.errors_title'  => 'Mai e ceva de corectat:',
 
     /* Auth */
     'login.title'    => 'Bine ai revenit',

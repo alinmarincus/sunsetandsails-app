@@ -45,6 +45,17 @@
     <p class="eyebrow">{{ __('club.join.form') }}</p>
 
     <div class="card">
+      @if ($errors->any())
+        <div class="alert alert--err">
+          <strong>{{ __('club.form.errors_title') }}</strong>
+          <ul style="margin:8px 0 0 18px">
+            @foreach ($errors->all() as $mesaj)
+              <li>{{ $mesaj }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -92,6 +103,19 @@
       </p>
     </div>
   </section>
+
+@if ($errors->any())
+<script>
+  /* Dupa o eroare de validare pagina se reincarca de sus, iar omul nu vede
+     ce s-a intamplat. Il ducem inapoi la formular, pe campul gresit. */
+  document.getElementById('form').scrollIntoView();
+  var gresit = document.querySelector('.field .error');
+  if (gresit) {
+    var camp = gresit.closest('.field').querySelector('input');
+    if (camp) camp.focus({ preventScroll: true });
+  }
+</script>
+@endif
 
 <script>
 /* Video de fundal în hero: montaj vertical pe telefon, orizontal pe desktop.
