@@ -46,7 +46,7 @@ class ContentListForm
                 ->schema([
                     Repeater::make('sections')
                         ->relationship()
-                        ->label('')
+                        ->hiddenLabel()
                         ->orderColumn('position')
                         ->collapsed()
                         ->cloneable()

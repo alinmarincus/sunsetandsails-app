@@ -89,7 +89,7 @@ class TripForm
                     ->schema([
                         Repeater::make('days')
                             ->relationship()
-                            ->label('')
+                            ->hiddenLabel()
                             ->orderColumn('day_number')
                             ->columns(3)
                             ->schema([
