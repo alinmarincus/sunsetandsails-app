@@ -11,6 +11,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use App\Models\ContentList;
 use App\Support\ImageProcessor;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
@@ -102,22 +103,27 @@ class TripForm
                                 isset($state['day_number']) ? 'Ziua ' . $state['day_number'] : null),
                     ]),
 
-                Section::make('Lista cu necesarul')
-                    ->description('Lasă gol ca să se folosească lista standard.')
-                    ->collapsed()
+                Section::make('Liste atribuite')
+                    ->description('Se administrează separat, la Liste. Aceeași listă poate fi folosită de mai multe croaziere.')
+                    ->columns(3)
                     ->schema([
-                        Repeater::make('checklistItems')
-                            ->relationship()
-                            ->label('')
-                            ->orderColumn('position')
-                            ->columns(2)
-                            ->schema([
-                                TextInput::make('label.ro')->label('Element (RO)')->required(),
-                                TextInput::make('label.en')->label('Element (EN)'),
-                                TextInput::make('hint.ro')->label('Explicație (RO)'),
-                                TextInput::make('hint.en')->label('Explicație (EN)'),
-                            ])
-                            ->itemLabel(fn (array $state): ?string => $state['label']['ro'] ?? null),
+                        Select::make('packing_list_id')
+                            ->label('Necesar de bagaj')
+                            ->options(fn () => ContentList::optiuni('packing'))
+                            ->searchable()
+                            ->placeholder('Fără listă'),
+
+                        Select::make('menu_list_id')
+                            ->label('Meniu')
+                            ->options(fn () => ContentList::optiuni('menu'))
+                            ->searchable()
+                            ->placeholder('Fără meniu'),
+
+                        Select::make('info_list_id')
+                            ->label('Informații utile')
+                            ->options(fn () => ContentList::optiuni('info'))
+                            ->searchable()
+                            ->placeholder('Fără informații'),
                     ]),
             ]);
     }

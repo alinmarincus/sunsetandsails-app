@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Announcement;
-use App\Models\ChecklistItem;
+use App\Models\ContentList;
 use App\Models\Trip;
 use App\Models\TripDay;
 use App\Models\User;
@@ -38,29 +38,9 @@ class ClubDemoSeeder extends Seeder
             ]
         );
 
-        /* ── Sablon global pentru lista de bagaj ────────────────────────── */
-        $template = [
-            ['ro' => 'Pașaport sau carte de identitate', 'en' => 'Passport or ID card',
-             'hint_ro' => 'Valabil cel puțin 6 luni.', 'hint_en' => 'Valid for at least 6 months.'],
-            ['ro' => 'Cremă de soare SPF 50', 'en' => 'Sunscreen SPF 50', 'hint_ro' => null, 'hint_en' => null],
-            ['ro' => 'Ochelari de soare cu șnur', 'en' => 'Sunglasses with a strap', 'hint_ro' => null, 'hint_en' => null],
-            ['ro' => 'Încălțăminte cu talpă albă', 'en' => 'Shoes with white soles',
-             'hint_ro' => 'Tălpile negre lasă urme pe punte.', 'hint_en' => 'Dark soles leave marks on deck.'],
-            ['ro' => 'Geacă subțire de vânt', 'en' => 'Light windbreaker', 'hint_ro' => null, 'hint_en' => null],
-            ['ro' => 'Bagaj moale, nu troler', 'en' => 'Soft bag, not a suitcase',
-             'hint_ro' => 'Se depozitează mult mai ușor la bord.', 'hint_en' => 'Much easier to stow on board.'],
-            ['ro' => 'Medicamente personale', 'en' => 'Personal medication', 'hint_ro' => null, 'hint_en' => null],
-        ];
-
-        foreach ($template as $i => $row) {
-            ChecklistItem::updateOrCreate(
-                ['trip_id' => null, 'position' => $i],
-                [
-                    'label' => ['ro' => $row['ro'], 'en' => $row['en']],
-                    'hint'  => $row['hint_ro'] ? ['ro' => $row['hint_ro'], 'en' => $row['hint_en']] : null,
-                ]
-            );
-        }
+        /* ── Lista de bagaj standard ────────────────────────────────────── */
+        $this->call(ChecklistTemplateSeeder::class);
+        $listaBagaj = ContentList::where('type', 'packing')->first();
 
         /* ── Croaziere ──────────────────────────────────────────────────── */
         $next = Trip::updateOrCreate(

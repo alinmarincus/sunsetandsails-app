@@ -49,32 +49,37 @@
         </div>
       </article>
 
-      {{-- Lista cu necesarul --}}
+      {{-- Lista cu necesarul, pe secțiuni --}}
       @if ($checklist->isNotEmpty())
-        @php $done = $checklist->where('checked', true)->count(); @endphp
+        @php
+          /* Numărăm peste tot: secțiuni, subsecțiuni, toate elementele */
+          $toate = $checklist->flatMap(fn ($s) => $s['elemente']->concat(
+              $s['subsectiuni']->flatMap(fn ($sub) => $sub['elemente'])
+          ));
+          $gata = $toate->where('bifat', true)->count();
+        @endphp
+
         <div class="card" style="margin-top:16px">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
             <h3>{{ __('club.dash.checklist') }}</h3>
-            <span class="muted">{{ __('club.dash.checklist_done', ['done' => $done, 'total' => $checklist->count()]) }}</span>
+            <span class="muted">{{ __('club.dash.checklist_done', ['done' => $gata, 'total' => $toate->count()]) }}</span>
           </div>
 
-          <div class="progress-line"><i style="width:{{ $checklist->count() ? round($done / $checklist->count() * 100) : 0 }}%"></i></div>
+          <div class="progress-line">
+            <i style="width:{{ $toate->count() ? round($gata / $toate->count() * 100) : 0 }}%"></i>
+          </div>
 
-          <ul class="checklist" style="margin-top:8px">
-            @foreach ($checklist as $item)
-              <li>
-                <label>
-                  <input type="checkbox"
-                         data-item="{{ $item['id'] }}"
-                         {{ $item['checked'] ? 'checked' : '' }}>
-                  <span>
-                    {{ $item['label'] }}
-                    @if ($item['hint'])<span class="hint">{{ $item['hint'] }}</span>@endif
-                  </span>
-                </label>
-              </li>
+          @foreach ($checklist as $sectiune)
+            <p class="checklist-sectiune">{{ $sectiune['titlu'] }}</p>
+            @if ($sectiune['nota'])<p class="muted" style="margin:-6px 0 8px">{{ $sectiune['nota'] }}</p>@endif
+
+            @include('club.partials.checklist-items', ['elemente' => $sectiune['elemente']])
+
+            @foreach ($sectiune['subsectiuni'] as $sub)
+              <p class="checklist-subsectiune">{{ $sub['titlu'] }}</p>
+              @include('club.partials.checklist-items', ['elemente' => $sub['elemente']])
             @endforeach
-          </ul>
+          @endforeach
         </div>
       @endif
     </section>
@@ -143,7 +148,13 @@ document.querySelectorAll('.checklist input[data-item]').forEach(function (box) 
         'Content-Type': 'application/json',
         'X-CSRF-TOKEN': @json(csrf_token()),
       },
-      body: JSON.stringify({ item: box.dataset.item, checked: box.checked }),
+      /* Bifa e legată și de croazieră: aceeași listă pe două ieșiri
+         are bife separate. */
+      body: JSON.stringify({
+        item: box.dataset.item,
+        trip: @json($focus?->id),
+        checked: box.checked,
+      }),
     }).then(function (r) {
       if (!r.ok) box.checked = !box.checked;
       else refreshProgress();

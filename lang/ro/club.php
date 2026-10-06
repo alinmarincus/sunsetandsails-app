@@ -64,6 +64,7 @@ return [
     'dash.past'         => 'Croaziere trecute',
     'dash.checklist'    => 'Lista cu necesarul',
     'dash.checklist_done' => ':done din :total',
+    'dash.where_to_buy'   => 'De unde cumperi',
     'dash.news'         => 'Anunțuri',
     'dash.days_left'    => 'zile până la îmbarcare',
     'dash.day_left'     => 'zi până la îmbarcare',

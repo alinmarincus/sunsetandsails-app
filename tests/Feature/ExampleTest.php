@@ -8,12 +8,15 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Rădăcina trimite spre limba implicită, de unde se servește pagina de intrare.
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        $this->withHeader('Accept-Language', 'ro')
+            ->get('/')
+            ->assertRedirect('/ro');
 
-        $response->assertStatus(200);
+        $this->get('/ro')->assertStatus(200);
+        $this->get('/en')->assertStatus(200);
     }
 }

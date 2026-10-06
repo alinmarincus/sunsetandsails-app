@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
-use App\Models\ChecklistItem;
+use App\Models\ChecklistTick;
+use App\Models\ContentItem;
+use App\Models\ContentSection;
 use App\Models\Trip;
+use App\Models\User;
 use App\Support\ImageProcessor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -43,41 +46,73 @@ class ClubController extends Controller
     }
 
     /**
-     * Lista de bagaj a unei croaziere, cu bifele membrului curent.
-     * Daca ieșirea nu are lista proprie, foloseste sablonul global.
+     * Lista de bagaj a unei croaziere, pe secțiuni, cu bifele membrului.
+     * Bifele sunt legate și de croazieră, deci aceeași listă folosită la
+     * două ieșiri are bife separate.
      */
-    private function checklistFor(Trip $trip, $user)
+    private function checklistFor(Trip $trip, User $user)
     {
-        $items = $trip->checklistItems;
+        $lista = $trip->packingList;
 
-        if ($items->isEmpty()) {
-            $items = ChecklistItem::template()->orderBy('position')->get();
+        if (! $lista) {
+            return collect();
         }
 
-        $checkedIds = $user->checkedItems()
-            ->whereNotNull('checklist_user.checked_at')
-            ->pluck('checklist_items.id')
+        $bifate = ChecklistTick::query()
+            ->where('user_id', $user->id)
+            ->where('trip_id', $trip->id)
+            ->whereNotNull('checked_at')
+            ->pluck('content_item_id')
             ->all();
 
-        return $items->map(fn (ChecklistItem $item) => [
-            'id'      => $item->id,
-            'label'   => $item->label,
-            'hint'    => $item->hint,
-            'checked' => in_array($item->id, $checkedIds, true),
+        $sectiuni = $lista->sections()->with(['items', 'children.items'])->get();
+
+        return $sectiuni->map(fn (ContentSection $sectiune) => [
+            'titlu'     => $sectiune->title,
+            'nota'      => $sectiune->note,
+            'elemente'  => $this->elementeCuBife($sectiune->items, $bifate),
+            'subsectiuni' => $sectiune->children->map(fn (ContentSection $sub) => [
+                'titlu'    => $sub->title,
+                'elemente' => $this->elementeCuBife($sub->items, $bifate),
+            ]),
         ]);
     }
 
-    /** Bifeaza / debifeaza un element din lista de bagaj. */
+    private function elementeCuBife($elemente, array $bifate)
+    {
+        return $elemente->map(fn (ContentItem $element) => [
+            'id'        => $element->id,
+            'titlu'     => $element->title,
+            'detaliu'   => $element->body,
+            'imagine'   => $element->imageUrl(),
+            'link'      => $element->link_url,
+            'linkText'  => $element->link_label,
+            'bifat'     => in_array($element->id, $bifate, true),
+        ]);
+    }
+
+    /** Bifeaza / debifeaza un element, pentru croaziera data. */
     public function toggleChecklist(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'item'    => ['required', 'integer', Rule::exists('checklist_items', 'id')],
+            'item'    => ['required', 'integer', Rule::exists('content_items', 'id')],
+            'trip'    => ['required', 'integer', Rule::exists('trips', 'id')],
             'checked' => ['required', 'boolean'],
         ]);
 
-        $request->user()->checkedItems()->syncWithoutDetaching([
-            $data['item'] => ['checked_at' => $data['checked'] ? now() : null],
-        ]);
+        $user = $request->user();
+
+        // Membrul poate bifa doar la croazierele la care participă
+        abort_unless($user->trips()->whereKey($data['trip'])->exists(), 403);
+
+        ChecklistTick::updateOrCreate(
+            [
+                'user_id'         => $user->id,
+                'trip_id'         => $data['trip'],
+                'content_item_id' => $data['item'],
+            ],
+            ['checked_at' => $data['checked'] ? now() : null]
+        );
 
         return response()->json(['ok' => true]);
     }

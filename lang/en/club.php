@@ -64,6 +64,7 @@ return [
     'dash.past'         => 'Past cruises',
     'dash.checklist'    => 'Packing list',
     'dash.checklist_done' => ':done of :total',
+    'dash.where_to_buy'   => 'Where to buy',
     'dash.news'         => 'Announcements',
     'dash.days_left'    => 'days until boarding',
     'dash.day_left'     => 'day until boarding',

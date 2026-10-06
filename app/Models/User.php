@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -62,11 +63,9 @@ class User extends Authenticatable implements FilamentUser
             ->withTimestamps();
     }
 
-    public function checkedItems(): BelongsToMany
+    public function ticks(): HasMany
     {
-        return $this->belongsToMany(ChecklistItem::class, 'checklist_user')
-            ->withPivot('checked_at')
-            ->withTimestamps();
+        return $this->hasMany(ChecklistTick::class);
     }
 
     /* ── Croaziere, dupa data ───────────────────────────────────────────── */

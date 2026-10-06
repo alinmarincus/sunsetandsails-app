@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
@@ -38,9 +39,22 @@ class Trip extends Model
             ->withTimestamps();
     }
 
-    public function checklistItems(): HasMany
+    /* Listele atribuite croazierei. Aceeași listă poate fi folosită și de
+       alte croaziere — de aceea legătura stă aici, nu în listă. */
+
+    public function packingList(): BelongsTo
     {
-        return $this->hasMany(ChecklistItem::class)->orderBy('position');
+        return $this->belongsTo(ContentList::class, 'packing_list_id');
+    }
+
+    public function menuList(): BelongsTo
+    {
+        return $this->belongsTo(ContentList::class, 'menu_list_id');
+    }
+
+    public function infoList(): BelongsTo
+    {
+        return $this->belongsTo(ContentList::class, 'info_list_id');
     }
 
     public function announcements(): HasMany

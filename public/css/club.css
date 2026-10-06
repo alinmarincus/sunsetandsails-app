@@ -334,6 +334,31 @@ h3 { font-size: 1.1rem; }
 .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
 .checklist .hint { display: block; font-size: .75rem; color: var(--muted); text-decoration: none; }
 
+/* Titluri de secțiune și subsecțiune în lista de bagaj */
+.checklist-sectiune {
+  font-size: .68rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--sunset);
+  margin: 22px 0 6px;
+}
+.checklist-sectiune:first-of-type { margin-top: 16px; }
+.checklist-subsectiune {
+  font-size: .78rem; font-weight: 600; color: var(--gold);
+  margin: 14px 0 2px 28px;
+}
+.checklist-subsectiune + .checklist { margin-left: 28px; }
+
+/* Imaginea și linkul de cumpărare ale unui element */
+.checklist-extra {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 12px 29px;
+}
+.checklist-extra img {
+  width: 54px; height: 54px; object-fit: cover;
+  border-radius: 8px; border: 1px solid rgba(255,255,255,.1);
+}
+.checklist-extra a { font-size: .8rem; color: var(--gold); }
+.checklist-extra a:hover { color: var(--sunset); }
+
 .progress-line { height: 4px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; margin-top: 14px; }
 .progress-line i { display: block; height: 100%; background: var(--sunset); border-radius: 3px; transition: width .3s; }
 
