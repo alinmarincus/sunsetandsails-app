@@ -17,7 +17,8 @@ class MakeAdmin extends Command
 {
     protected $signature = 'club:admin
                             {--email= : Adresa de email}
-                            {--name= : Numele afisat}';
+                            {--name= : Numele afisat}
+                            {--password= : Parola, cand promptul ascuns nu e de incredere (ramane in istoricul shell-ului)}';
 
     protected $description = 'Creeaza un administrator al clubului (sau ii da drepturi unuia existent)';
 
@@ -36,16 +37,20 @@ class MakeAdmin extends Command
                 $this->line('Are deja drepturi de administrator.');
             }
 
-            if ($this->confirm('Schimbi parola?', false)) {
-                $user->update(['password' => Hash::make($this->askForPassword())]);
-                $this->info('Parola a fost schimbata.');
+            if ($this->option('password') || $this->confirm('Schimbi parola?', false)) {
+                $parola = $this->obtinParola();
+                $user->update(['password' => Hash::make($parola)]);
+
+                // Verificam ce s-a salvat: promptul ascuns nu citeste corect
+                // pe toate terminalele si raporta succes pe o parola gresita.
+                $this->confirmaParola($user->fresh(), $parola);
             }
 
             return self::SUCCESS;
         }
 
         $name     = $this->option('name') ?: $this->ask('Nume');
-        $password = $this->askForPassword();
+        $password = $this->obtinParola();
 
         $validator = Validator::make(
             compact('name', 'email'),
@@ -74,7 +79,43 @@ class MakeAdmin extends Command
         $this->info("Administrator creat: {$email}");
         $this->line('Te poti autentifica la /admin');
 
+        $this->confirmaParola(User::where('email', $email)->first(), $password);
+
         return self::SUCCESS;
+    }
+
+    /** Parola din optiune, daca e data, altfel de la prompt. */
+    private function obtinParola(): string
+    {
+        $dinOptiune = (string) $this->option('password');
+
+        if ($dinOptiune === '') {
+            return $this->askForPassword();
+        }
+
+        $check = Validator::make(['password' => $dinOptiune], [
+            'password' => ['required', Password::min(8)],
+        ]);
+
+        if ($check->fails()) {
+            $this->error($check->errors()->first());
+            exit(self::FAILURE);
+        }
+
+        return $dinOptiune;
+    }
+
+    /** Se autentifica parola salvata chiar cu parola ceruta? */
+    private function confirmaParola(User $user, string $password): void
+    {
+        if (Hash::check($password, $user->password)) {
+            $this->info('Verificat: parola salvata este cea ceruta.');
+
+            return;
+        }
+
+        $this->error('Parola salvata NU se potriveste cu ce s-a citit de la prompt.');
+        $this->line('Reia cu --password="parola", ca sa ocolesti promptul ascuns.');
     }
 
     private function askForPassword(): string
