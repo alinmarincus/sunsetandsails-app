@@ -13,15 +13,17 @@ class Trip extends Model
     use HasTranslations;
 
     /** Campuri cu versiune RO si EN */
-    public array $translatable = ['title', 'destination', 'summary', 'description'];
+    public array $translatable = ['title', 'destination', 'summary', 'description', 'getting_there'];
 
     protected $guarded = [];
 
     protected function casts(): array
     {
         return [
-            'start_date' => 'date',
-            'end_date'   => 'date',
+            'start_date'     => 'date',
+            'end_date'       => 'date',
+            'boarding_time'  => 'datetime:H:i',
+            'disembark_time' => 'datetime:H:i',
         ];
     }
 
@@ -107,5 +109,30 @@ class Trip extends Model
     public function coverUrl(): ?string
     {
         return $this->cover_image ? asset('storage/' . $this->cover_image) : null;
+    }
+
+    public function boardingPassUrl(): ?string
+    {
+        return $this->boarding_pass_path ? asset('storage/' . $this->boarding_pass_path) : null;
+    }
+
+    /** Marina de intoarcere, cand e alta decat cea de plecare. */
+    public function marinaDeIntoarcere(): ?string
+    {
+        return $this->return_marina && $this->return_marina !== $this->departure_marina
+            ? $this->return_marina
+            : null;
+    }
+
+    /** Are ceva de aratat la sectiunea de plecare? */
+    public function areDetaliiDePlecare(): bool
+    {
+        return filled($this->departure_marina)
+            || filled($this->marina_address)
+            || filled($this->boarding_time)
+            || filled($this->base_contact)
+            || filled($this->emergency_phone)
+            || filled($this->getting_there)
+            || filled($this->boarding_pass_path);
     }
 }

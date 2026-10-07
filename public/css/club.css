@@ -334,6 +334,20 @@ h3 { font-size: 1.1rem; }
 .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
 .checklist .hint { display: block; font-size: .75rem; color: var(--muted); text-decoration: none; }
 
+/* ── Plecarea: marina, ore, contacte ────────────────────────────────────── */
+.plecare { margin: 12px 0 0; }
+.plecare dt {
+  font-size: .68rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-top: 14px;
+}
+.plecare dt:first-child { margin-top: 0; }
+.plecare dd { margin: 2px 0 0; font-size: .95rem; }
+.plecare dd .muted { display: block; font-size: .8rem; margin-top: 2px; }
+.plecare dd a { color: var(--sunset); }
+
+.plecare-actiuni { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.plecare-actiuni .btn { flex: 1 1 auto; text-align: center; }
+
 /* Titluri de secțiune și subsecțiune în lista de bagaj */
 .checklist-sectiune {
   font-size: .68rem; font-weight: 600; letter-spacing: .14em;

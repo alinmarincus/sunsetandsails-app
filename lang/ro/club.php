@@ -76,6 +76,17 @@ return [
     'dash.no_past'      => 'Croazierele încheiate vor apărea aici, cu pozele de la bord.',
     'dash.nights'       => ':n nopți',
 
+    'dash.departure'      => 'Plecarea',
+    'dash.departure_from' => 'Plecare din',
+    'dash.return_to'      => 'Întoarcere în',
+    'dash.boarding_time'  => 'Ora îmbarcării',
+    'dash.disembark_time' => 'Ora debarcării',
+    'dash.open_map'       => 'Deschide harta',
+    'dash.base_contact'   => 'Contact la bază',
+    'dash.emergency'      => 'Urgențe',
+    'dash.getting_there'  => 'Cum ajungi',
+    'dash.boarding_pass'  => 'Descarcă boarding pass-ul',
+
     /* Profil */
     'profile.title'     => 'Profilul meu',
     'profile.photo'     => 'Poză de profil',

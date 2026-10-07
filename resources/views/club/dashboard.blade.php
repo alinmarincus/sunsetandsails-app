@@ -49,6 +49,10 @@
         </div>
       </article>
 
+      @if ($focus->areDetaliiDePlecare())
+        @include('club.partials.departure', ['trip' => $focus])
+      @endif
+
       {{-- Lista cu necesarul, pe secțiuni --}}
       @if ($checklist->isNotEmpty())
         @php

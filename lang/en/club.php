@@ -76,6 +76,17 @@ return [
     'dash.no_past'      => 'Completed cruises will appear here, with the photos from on board.',
     'dash.nights'       => ':n nights',
 
+    'dash.departure'      => 'Departure',
+    'dash.departure_from' => 'Departing from',
+    'dash.return_to'      => 'Returning to',
+    'dash.boarding_time'  => 'Boarding time',
+    'dash.disembark_time' => 'Disembark time',
+    'dash.open_map'       => 'Open the map',
+    'dash.base_contact'   => 'Contact at the base',
+    'dash.emergency'      => 'Emergency',
+    'dash.getting_there'  => 'Getting there',
+    'dash.boarding_pass'  => 'Download the boarding pass',
+
     /* Profile */
     'profile.title'     => 'My profile',
     'profile.photo'     => 'Profile photo',

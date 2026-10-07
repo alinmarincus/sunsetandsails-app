@@ -8,6 +8,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TimePicker;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -80,6 +81,74 @@ class TripForm
                         TextInput::make('drive_folder_id')
                             ->label('Folder Google Drive')
                             ->helperText('ID-ul folderului cu pozele croazierei. Se folosește la sincronizare.')
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Plecare și marina')
+                    ->description('Datele de pe boarding pass-ul companiei de charter. Apar în contul membrului, la croaziera următoare.')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('departure_marina')
+                            ->label('Plecare din')
+                            ->placeholder('Olympic Marina')
+                            ->helperText('Marina de unde se îmbarcă.'),
+
+                        TextInput::make('return_marina')
+                            ->label('Întoarcere în')
+                            ->placeholder('Lasă gol dacă e aceeași marina'),
+
+                        TextInput::make('marina_address')
+                            ->label('Adresa marinei')
+                            ->columnSpanFull(),
+
+                        TextInput::make('marina_map_url')
+                            ->label('Link hartă')
+                            ->url()
+                            ->helperText('Link Google Maps, deschis direct de pe telefon.')
+                            ->columnSpanFull(),
+
+                        TimePicker::make('boarding_time')
+                            ->label('Ora îmbarcării')
+                            ->seconds(false)
+                            ->native(false),
+
+                        TimePicker::make('disembark_time')
+                            ->label('Ora debarcării')
+                            ->seconds(false)
+                            ->native(false),
+
+                        TextInput::make('base_contact')
+                            ->label('Contact la bază')
+                            ->placeholder('Natalia, +30 693 228 0700'),
+
+                        TextInput::make('emergency_phone')
+                            ->label('Telefon urgențe')
+                            ->tel(),
+
+                        Tabs::make('Cum ajungi')->columnSpanFull()->tabs([
+                            Tab::make('Română')->schema([
+                                Textarea::make('getting_there.ro')
+                                    ->label('Cum ajungi la marina')
+                                    ->rows(4)
+                                    ->helperText('De la ce aeroport, transfer, parcare, autobuz.'),
+                            ]),
+                            Tab::make('English')->schema([
+                                Textarea::make('getting_there.en')
+                                    ->label('Getting to the marina')
+                                    ->rows(4),
+                            ]),
+                        ]),
+
+                        FileUpload::make('boarding_pass_path')
+                            ->label('Boarding pass')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(8192)
+                            // Discul implicit e cel privat; linkul din cont merge doar de pe „public”
+                            ->disk('public')
+                            ->directory('boarding')
+                            ->downloadable()
+                            ->openable()
+                            ->helperText('PDF-ul de la compania de charter. Membrii croazierei îl pot descărca din contul lor.')
                             ->columnSpanFull(),
                     ]),
 
