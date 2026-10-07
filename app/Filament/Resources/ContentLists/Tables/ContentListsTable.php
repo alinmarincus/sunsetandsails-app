@@ -6,6 +6,7 @@ use App\Filament\Resources\ContentLists\ContentListResource;
 use App\Models\ContentList;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Notifications\Notification;
@@ -80,6 +81,11 @@ class ContentListsTable
 
                         return redirect(ContentListResource::getUrl('edit', ['record' => $copie]));
                     }),
+
+                DeleteAction::make()
+                    ->modalDescription(fn (ContentList $record) => $record->trips()->count() > 0
+                        ? 'Lista e folosită la '.$record->trips()->count().' croaziere. Ele rămân, dar fără lista asta.'
+                        : 'Se șterg și secțiunile, și elementele ei.'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

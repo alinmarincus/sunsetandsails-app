@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Trips\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
@@ -51,6 +52,8 @@ class TripsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
+                    ->modalDescription('Se șterg și participanții înscriși la ea, și bifele lor de bagaj. Listele atribuite rămân.'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

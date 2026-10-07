@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -44,6 +45,10 @@ class UsersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
+                    // Nu-ți poți șterge propriul cont din panou
+                    ->hidden(fn ($record) => $record->id === auth()->id())
+                    ->modalDescription('Se șterg și înscrierile lui la croaziere, și bifele de bagaj.'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
