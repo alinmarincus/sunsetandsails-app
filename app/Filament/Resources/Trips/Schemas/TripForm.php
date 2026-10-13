@@ -73,6 +73,7 @@ class TripForm
                             ->label('Imagine de copertă')
                             ->image()
                             ->imageEditor()
+                            ->disk('public')
                             ->helperText('Se redimensionează la 1600px și se convertește automat în WebP.')
                             ->saveUploadedFileUsing(
                                 fn (TemporaryUploadedFile $file) => ImageProcessor::storeCover($file->getRealPath())

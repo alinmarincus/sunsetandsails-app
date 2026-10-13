@@ -76,6 +76,7 @@ return [
     'dash.no_past'      => 'Croazierele încheiate vor apărea aici, cu pozele de la bord.',
     'dash.nights'       => ':n nopți',
 
+    'dash.scroll'         => 'Vezi detaliile',
     'dash.departure'      => 'Plecarea',
     'dash.departure_from' => 'Plecare din',
     'dash.return_to'      => 'Întoarcere în',

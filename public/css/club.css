@@ -4,6 +4,10 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+  /* Înălțimea antetului lipit sus: iese mai mic pe desktop, unde logoul și
+     comutatorul de limbă stau pe un singur rând mai strâns. */
+  --hdr-h: 61px;
+
   --navy:    #0A1628;
   --surface: #111e35;
   --line:    rgba(212,165,116,.15);
@@ -227,7 +231,7 @@ h3 { font-size: 1.1rem; }
 .section { margin-top: 40px; }
 
 /* Lasă loc sub antetul fix când se sare la o secțiune prin link */
-.section[id] { scroll-margin-top: 78px; }
+.section[id] { scroll-margin-top: calc(var(--hdr-h) + 16px); }
 
 .grid { display: grid; gap: 16px; }
 @media (min-width: 720px) {
@@ -321,6 +325,74 @@ h3 { font-size: 1.1rem; }
 }
 .countdown b { font-family: var(--serif); font-size: 1.2rem; color: var(--sunset); }
 .countdown span { font-size: .72rem; color: var(--soft); }
+
+/* ── Croaziera următoare, pe tot ecranul ────────────────────────────────── */
+
+/* Iese din coloana centrată și urcă sub antet */
+.trip--hero {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: -32px;              /* anulează padding-ul de sus al lui <main> */
+  border: 0; border-radius: 0;
+  min-height: calc(100vh - var(--hdr-h));
+  min-height: calc(100svh - var(--hdr-h));
+  justify-content: flex-end;
+}
+
+/* Deasupra pozei: cine ești, discret */
+.trip-hero__salut {
+  position: absolute; z-index: 1; top: 18px; left: 20px; right: 20px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: .9rem; color: var(--soft);
+  text-shadow: 0 1px 12px rgba(10,22,40,.6);
+}
+.trip-hero__salut .avatar { width: 32px; height: 32px; }
+
+.trip--hero .trip-veil {
+  background: linear-gradient(to bottom,
+    rgba(10,22,40,.55) 0%, rgba(10,22,40,.2) 30%,
+    rgba(10,22,40,.75) 75%, rgba(10,22,40,.97) 100%);
+}
+
+.trip--hero .trip-body {
+  padding: 0 20px 76px;
+  max-width: 960px; width: 100%; margin: 0 auto;
+}
+.trip--hero .trip-title {
+  font-size: clamp(2.1rem, 11vw, 3.4rem); line-height: 1.05; margin-top: 4px;
+}
+.trip--hero .trip-dates { font-size: .95rem; margin-top: 8px; }
+.trip--hero .eyebrow { margin-bottom: 10px; }
+
+/* Săgeata care arată că pagina continuă */
+.trip-hero__cue {
+  position: absolute; z-index: 1; bottom: 24px; left: 50%;
+  width: 34px; height: 34px; margin-left: -17px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,.25);
+}
+.trip-hero__cue span {
+  width: 9px; height: 9px; margin-top: -3px;
+  border-right: 1.5px solid var(--soft); border-bottom: 1.5px solid var(--soft);
+  transform: rotate(45deg);
+}
+.trip-hero__cue:hover { border-color: var(--sunset); }
+.trip-hero__cue:hover span { border-color: var(--sunset); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .trip-hero__cue { animation: cue-plutire 2.4s ease-in-out infinite; }
+  @keyframes cue-plutire {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(5px); }
+  }
+}
+
+/* Pe ecran lat textul nu trebuie să ajungă la marginea ferestrei */
+@media (min-width: 760px) {
+  :root { --hdr-h: 54px; }
+  .trip--hero .trip-body { padding-bottom: 92px; }
+  .trip--hero .trip-title { font-size: clamp(2.6rem, 5.5vw, 4rem); }
+}
 
 /* ── Checklist ──────────────────────────────────────────────────────────── */
 .checklist { list-style: none; }

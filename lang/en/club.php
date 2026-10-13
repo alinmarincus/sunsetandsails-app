@@ -76,6 +76,7 @@ return [
     'dash.no_past'      => 'Completed cruises will appear here, with the photos from on board.',
     'dash.nights'       => ':n nights',
 
+    'dash.scroll'         => 'See the details',
     'dash.departure'      => 'Departure',
     'dash.departure_from' => 'Departing from',
     'dash.return_to'      => 'Returning to',

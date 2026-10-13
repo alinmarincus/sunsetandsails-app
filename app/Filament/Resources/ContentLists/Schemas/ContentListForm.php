@@ -127,6 +127,7 @@ class ContentListForm
                 ->label('Imagine')
                 ->image()
                 ->imageEditor()
+                ->disk('public')
                 ->helperText('Se comprimă și se convertește automat în WebP.')
                 ->saveUploadedFileUsing(
                     fn (TemporaryUploadedFile $file) => ImageProcessor::store(

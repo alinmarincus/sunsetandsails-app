@@ -3,52 +3,64 @@
 
 @section('content')
 
-  {{-- Salut --}}
-  <section class="hello">
-    <img src="{{ $user->avatarUrl() }}" alt="" class="avatar avatar--lg"
-         onerror="this.style.display='none'">
-    <div>
-      <h1 style="font-size:1.9rem">{{ __('club.dash.hello', ['name' => $user->firstName()]) }}</h1>
-      @if ($user->joined_club_at)
-        <p class="muted">{{ __('club.dash.member_since', ['date' => $user->joined_club_at->translatedFormat('F Y')]) }}</p>
-      @endif
-    </div>
-  </section>
-
-  {{-- Croaziera curenta sau urmatoarea --}}
   @php $focus = $current ?? $upcoming->first(); @endphp
 
-  @if ($focus)
-    <section class="section">
-      <p class="eyebrow">{{ $current ? __('club.dash.current') : __('club.dash.next') }}</p>
-
-      <article class="trip" style="min-height:240px">
-        @if ($focus->coverUrl())
-          <div class="trip-bg" style="background-image:url('{{ $focus->coverUrl() }}')"></div>
+  {{-- Fara croaziera in cont, salutul ramane in capul paginii --}}
+  @unless ($focus)
+    <section class="hello">
+      <img src="{{ $user->avatarUrl() }}" alt="" class="avatar avatar--lg"
+           onerror="this.style.display='none'">
+      <div>
+        <h1 style="font-size:1.9rem">{{ __('club.dash.hello', ['name' => $user->firstName()]) }}</h1>
+        @if ($user->joined_club_at)
+          <p class="muted">{{ __('club.dash.member_since', ['date' => $user->joined_club_at->translatedFormat('F Y')]) }}</p>
         @endif
-        <div class="trip-veil"></div>
-        <div class="trip-body">
-          @if ($focus->destination)
-            <span class="trip-tag">{{ $focus->destination }}</span>
-          @endif
-          <h2 class="trip-title">{{ $focus->title }}</h2>
-          <p class="trip-dates">
-            {{ $focus->start_date->translatedFormat('j M') }} – {{ $focus->end_date->translatedFormat('j M Y') }}
-            · {{ __('club.dash.nights', ['n' => $focus->nights()]) }}
+      </div>
+    </section>
+  @endunless
+
+  @if ($focus)
+    {{-- Croaziera urmatoare, pe tot ecranul: primul lucru pe care il vede membrul --}}
+    <article class="trip trip--hero">
+      @if ($focus->coverUrl())
+        <div class="trip-bg" style="background-image:url('{{ $focus->coverUrl() }}')"></div>
+      @endif
+      <div class="trip-veil"></div>
+
+      <div class="trip-hero__salut">
+        <img src="{{ $user->avatarUrl() }}" alt="" class="avatar"
+             onerror="this.style.display='none'">
+        <span>{{ __('club.dash.hello', ['name' => $user->firstName()]) }}</span>
+      </div>
+
+      <div class="trip-body">
+        <p class="eyebrow">{{ $current ? __('club.dash.current') : __('club.dash.next') }}</p>
+        @if ($focus->destination)
+          <span class="trip-tag">{{ $focus->destination }}</span>
+        @endif
+        <h1 class="trip-title">{{ $focus->title }}</h1>
+        <p class="trip-dates">
+          {{ $focus->start_date->translatedFormat('j M') }} – {{ $focus->end_date->translatedFormat('j M Y') }}
+          · {{ __('club.dash.nights', ['n' => $focus->nights()]) }}
+        </p>
+
+        @if ($focus->isCurrent())
+          <p class="countdown"><span>{{ __('club.dash.on_board') }}</span></p>
+        @else
+          @php $d = $focus->daysUntilStart(); @endphp
+          <p class="countdown">
+            <b>{{ $d }}</b>
+            <span>{{ $d === 1 ? __('club.dash.day_left') : __('club.dash.days_left') }}</span>
           </p>
+        @endif
+      </div>
 
-          @if ($focus->isCurrent())
-            <p class="countdown"><span>{{ __('club.dash.on_board') }}</span></p>
-          @else
-            @php $d = $focus->daysUntilStart(); @endphp
-            <p class="countdown">
-              <b>{{ $d }}</b>
-              <span>{{ $d === 1 ? __('club.dash.day_left') : __('club.dash.days_left') }}</span>
-            </p>
-          @endif
-        </div>
-      </article>
+      <a class="trip-hero__cue" href="#detalii" aria-label="{{ __('club.dash.scroll') }}">
+        <span></span>
+      </a>
+    </article>
 
+    <section class="section" id="detalii">
       @if ($focus->areDetaliiDePlecare())
         @include('club.partials.departure', ['trip' => $focus])
       @endif

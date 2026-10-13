@@ -45,6 +45,7 @@ class UserForm
                             ->image()
                             ->avatar()
                             ->imageEditor()
+                            ->disk('public')
                             ->helperText('Se comprimă și se convertește automat în WebP.')
                             // Conversia in WebP se face la salvare, nu in browser
                             ->saveUploadedFileUsing(
